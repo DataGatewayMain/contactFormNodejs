@@ -18,7 +18,8 @@ router.post('/submit', (req, res) => {
       location,
       Qualification,
       Skills,
-      Experience
+      Experience,
+      file
     } = req.body;
   
     // Configure the email transport using Nodemailer
@@ -60,6 +61,7 @@ router.post('/submit', (req, res) => {
     Qualification: ${Qualification}
     Skills: ${Skills}
     Experience: ${Experience}
+    file:${file}
         `
       };
     
