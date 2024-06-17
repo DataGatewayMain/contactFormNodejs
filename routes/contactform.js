@@ -26,8 +26,8 @@ router.post('/contact', (req, res) => {
     // Define email options
     const mailOptions = {
         from: 'noreply@datagateway.in',
-        to: 'noreply@datagateway.in',
-        subject: 'New Contact Form Submission',
+        to: 'info@datagateway.in',
+        subject: 'New Contact Form Submission from Datagateway.in',
         text: `Name: ${name}\nLastname: ${lastname}\nCompany Name: ${companyname}\nEmail: ${email}\nMessage: ${subject}`
     };
 

@@ -46,8 +46,8 @@ router.post('/submit', (req, res) => {
     // Email to noreply@datagateway.in with full application details
     const mailOptionsInternal = {
       from: 'noreply@datagateway.in',
-      to: 'noreply@datagateway.in',
-      subject: 'New Job Application Received',
+      to: 'info@datagateway.in',
+      subject: 'New Job Application Received from Datagateway.in',
       text: `
   Full Name: ${fullname}
   Email: ${email}
