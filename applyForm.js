@@ -55,11 +55,9 @@ router.post('/submit', (req, res) => {
     Full Name: ${fullname}
     Email: ${email}
     Phone: ${phone}
-    Annual Salary: ${AnnualSalary}
     Application: ${applications}
     Location: ${location}
     Qualification: ${Qualification}
-    Skills: ${Skills}
     Experience: ${Experience}
     file:${file}
         `
