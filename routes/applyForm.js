@@ -7,7 +7,6 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-
 router.post('/submit', (req, res) => {
     const {
       fullname,
@@ -18,52 +17,67 @@ router.post('/submit', (req, res) => {
       location,
       Qualification,
       Skills,
-      Experience
+      Experience,
+      file
     } = req.body;
   
     // Configure the email transport using Nodemailer
     const transporter = nodemailer.createTransport({
-        host: 'smtppro.zoho.in',
-        port: 465,
-        secure: true, // use SSL
-        auth: {
-          user: 'noreply@datagateway.in',
-          pass: 'Apple7620@'
-        }
-      });
+      host: 'smtppro.zoho.in',
+      port: 465,
+      secure: true, // use SSL
+      auth: {
+        user: 'noreply@datagateway.in',
+        pass: 'Apple7620@'
+      }
+    });
   
-    // Configure the email options
-    const mailOptions = {
+    // Email to the applicant
+    const mailOptionsApplicant = {
       from: 'noreply@datagateway.in',
       to: email,
       subject: 'Application Received',
-      text: `Dear ${fullname},
+      html: `Dear ${fullname},<br><br>
+             Thank you for applying for the position of <strong>${applications}</strong>. We have received your application and our team will review it shortly. We will get back to you soon.<br><br>
+             Best regards,<br>
+             Datagateway`
+    };
   
-  Thank you for applying for the position of ${applications}. We have received your application and our team will review it shortly.
-  
-  Here are the details you submitted:
-  - Full Name: ${fullname}
-  - Email: ${email}
-  - Phone: ${phone}
-  - Annual Salary: ${AnnualSalary}
-  - Location: ${location}
-  - Qualification: ${Qualification}
-  - Skills: ${Skills}
-  - Experience: ${Experience} years
-  
-  Best regards,
-  Your Company Name
+    // Email to noreply@datagateway.in with full application details
+    const mailOptionsInternal = {
+      from: 'noreply@datagateway.in',
+      to: 'noreply@datagateway.in',
+      subject: 'New Job Application Received',
+      text: `
+  Full Name: ${fullname}
+  Email: ${email}
+  Phone: ${phone}
+  Application: ${applications}
+  Location: ${location}
+  Qualification: ${Qualification}
+  Experience: ${Experience}
+ 
       `
     };
   
-    // Send the email
-    transporter.sendMail(mailOptions, (error, info) => {
+    // Send email to the applicant
+    transporter.sendMail(mailOptionsApplicant, (error, info) => {
       if (error) {
-        console.error('Error sending email:', error);
-        res.status(500).send('Error sending email');
+        console.error('Error sending email to applicant:', error);
+        res.status(500).send('Error sending email to applicant');
       } else {
-        console.log('Email sent:', info.response);
-        res.status(200).send('Application submitted successfully');
+        console.log('Email sent to applicant:', info.response);
+        
+        // Send email with full details to noreply@datagateway.in
+        transporter.sendMail(mailOptionsInternal, (error, info) => {
+          if (error) {
+            console.error('Error sending internal email:', error);
+            res.status(500).send('Error sending internal email');
+          } else {
+            console.log('Internal email sent:', info.response);
+            res.status(200).send('Application submitted successfully');
+          }
+        });
       }
     });
   });
