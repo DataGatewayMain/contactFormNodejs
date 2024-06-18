@@ -14,20 +14,18 @@ router.post('/contact', (req, res) => {
 
     // Create a transporter
     const transporter = nodemailer.createTransport({
-        host: 'smtppro.zoho.in',
-        port: 465,
-        secure: true, // use SSL
+        service: 'Gmail',
         auth: {
-          user: 'noreply@datagateway.in',
-          pass: 'Apple7620@'
+            user: 'vectoronenine4@gmail.com',
+            pass: 'awuo aagx bavf exap'
         }
-      });
+    });
 
     // Define email options
     const mailOptions = {
-        from: 'noreply@datagateway.in',
-        to: 'info@datagateway.in',
-        subject: 'New Contact Form Submission from Datagateway.in',
+        from: email,
+        to: 'vectoronenine4@gmail.com',
+        subject: 'New Contact Form Submission',
         text: `Name: ${name}\nLastname: ${lastname}\nCompany Name: ${companyname}\nEmail: ${email}\nMessage: ${subject}`
     };
 
