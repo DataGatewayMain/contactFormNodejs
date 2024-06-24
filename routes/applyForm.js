@@ -12,13 +12,10 @@ router.post('/submit', (req, res) => {
       fullname,
       email,
       phone,
-      AnnualSalary,
       applications,
       location,
       Qualification,
-      Skills,
-      Experience,
-      file
+      Experience
     } = req.body;
   
     // Configure the email transport using Nodemailer

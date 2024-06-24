@@ -8,7 +8,7 @@ const createError = require('http-errors');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const contactRouter = require('./routes/contactform'); // Import your contact router
-
+const applyFormRouter=require('./routes/applyForm')
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -28,7 +28,7 @@ app.set('view engine', 'jade');
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/', contactRouter); // Use your contact router for the /contact route
-
+app.use('/', applyFormRouter)
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(createError(404));
